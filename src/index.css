@@ -6,17 +6,18 @@
   --font-display: "Cinzel", serif;
   --font-script: "Cormorant Garamond", serif;
   
-  --color-bg-primary: #2b0005;
+  --color-bg-primary: #1a0003;
   --color-accent-gold: #c6a25a;
   --color-accent-gold-light: #e7c980;
-  --color-card-cream: #f8f1e7;
-  --color-text-maroon: #3b0a0f;
+  --color-accent-mint: #98ff98;
+  --color-card-cream: #fdfaf5;
+  --color-text-maroon: #3d0a0f;
   --color-text-muted: #8c6a58;
 }
 
 @layer base {
   body {
-    @apply bg-bg-primary text-card-cream overflow-x-hidden;
+    @apply bg-bg-primary text-card-cream overflow-x-hidden selection:bg-accent-gold selection:text-white;
     font-family: var(--font-sans);
   }
 }
@@ -35,12 +36,16 @@
     -webkit-text-fill-color: transparent;
   }
   
+  .mint-glow {
+    box-shadow: 0 0 20px rgba(152, 255, 152, 0.2);
+  }
+  
   .gold-border {
     border-image: linear-gradient(to right, #c6a25a, #e7c980, #c6a25a) 1;
   }
 
   .velvet-texture {
-    background: radial-gradient(circle at 50% 50%, #3d0007 0%, #2b0005 100%);
+    background: radial-gradient(circle at 50% 50%, #2b0005 0%, #1a0003 100%);
     position: relative;
   }
 

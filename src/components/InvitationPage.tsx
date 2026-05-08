@@ -33,7 +33,7 @@ export const InvitationPage = () => {
       setTimeout(() => {
         if (audioRef.current) {
           audioRef.current.play().catch(e => {
-            console.error("Audio play failed:", e);
+            console.error("Audio play failed");
             setAudioError(true);
             setIsMusicPlaying(false);
           });
@@ -63,7 +63,9 @@ export const InvitationPage = () => {
       if (isMusicPlaying) {
         audioRef.current.pause();
       } else {
-        audioRef.current.play().catch(console.error);
+        audioRef.current.play().catch(() => {
+        console.error("Toggle music play failed");
+      });
       }
       setIsMusicPlaying(!isMusicPlaying);
     }
@@ -73,14 +75,16 @@ export const InvitationPage = () => {
     <div className="min-h-screen relative bg-bg-primary overflow-x-hidden">
       <audio 
         ref={audioRef}
-        src="https://www.chosic.com/wp-content/uploads/2021/07/The-Gentle-Spring.mp3"
         loop
         preload="auto"
-        onError={(e) => {
-          console.error("Audio Load Error:", e);
+        onError={() => {
+          console.error("Audio Load Error");
           setAudioError(true);
         }}
-      />
+      >
+        <source src="https://www.chosic.com/wp-content/uploads/2021/07/The-Gentle-Spring.mp3" type="audio/mpeg" />
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg" />
+      </audio>
       <AnimatePresence>
         {isLoading && <Loader key="loader" />}
       </AnimatePresence>
@@ -176,27 +180,30 @@ export const InvitationPage = () => {
                   <div className="absolute inset-0 bg-accent-gold/5 blur-[80px] rounded-full scale-110 pointer-events-none" />
                   
                   {/* Portrait Container */}
-                  <motion.div
-                    animate={{ 
-                      y: [0, -12, 0],
-                    }}
-                    transition={{ 
-                      duration: 8, 
-                      repeat: Infinity, 
-                      ease: "easeInOut" 
-                    }}
-                    className="relative z-10 w-full aspect-[4/5] flex items-center justify-center"
-                  >
-                    {/* Atmospheric Glow */}
-                    <div className="absolute inset-0 bg-radial-gradient from-accent-gold/10 to-transparent blur-[100px] pointer-events-none" />
+                    <motion.div
+                      animate={{ 
+                        y: [0, -15, 0],
+                      }}
+                      transition={{ 
+                        duration: 6, 
+                        repeat: Infinity, 
+                        ease: "easeInOut" 
+                      }}
+                      className="relative z-10 w-full aspect-[4/5] flex items-center justify-center"
+                    >
+                      {/* Atmospheric Glow - Mint and Gold Blend */}
+                      <div 
+                        className="absolute inset-0 blur-[120px] pointer-events-none opacity-40" 
+                        style={{ background: 'radial-gradient(circle at center, #98ff98, #c6a25a 60%, transparent 80%)' }}
+                      />
                     
                     <img 
                       src={imageError ? "https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=2000&auto=format&fit=crop" : "/couple-portrait.png"} 
-                      alt="Kaiser and Ather" 
+                      alt="3D Illustration of Kaiser and Ather" 
                       onLoad={() => setImageLoaded(true)}
                       onError={() => setImageError(true)}
                       referrerPolicy="no-referrer"
-                      className={`max-w-full max-h-full object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.4)] transition-all duration-1000 ${imageLoaded || imageError ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}
+                      className={`max-w-full max-h-full object-contain drop-shadow-[0_25px_60px_rgba(0,0,0,0.6)] transition-all duration-1000 ${imageLoaded || imageError ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}
                     />
                   </motion.div>
                 </motion.div>
